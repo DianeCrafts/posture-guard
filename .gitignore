@@ -1,0 +1,46 @@
+# ----------------------
+# Python cache & builds
+# ----------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# ----------------------
+# Virtual environments
+# ----------------------
+.venv/
+venv/
+env/
+
+# ----------------------
+# IDE / Editor settings
+# ----------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ----------------------
+# OS files
+# ----------------------
+.DS_Store
+Thumbs.db
+
+# ----------------------
+# Logs & runtime files
+# ----------------------
+*.log
+
+# ----------------------
+# Data / outputs (future)
+# ----------------------
+data/
+outputs/
+logs/
+
+# ----------------------
+# Model artifacts (future)
+# ----------------------
+models/
+checkpoints/
