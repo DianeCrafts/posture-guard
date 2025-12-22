@@ -89,4 +89,16 @@ class Renderer:
 
         return frame
     
+    def draw_alert(self, frame, alert_active):
+        if alert_active:
+            cv2.putText(
+                frame,
+                "FIX YOUR POSTURE!!",
+                (300, 50),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                1.0,
+                (0, 0, 255),
+                3,
+            )
+        return frame
 
