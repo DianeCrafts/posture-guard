@@ -1,5 +1,5 @@
 opencv-python>=4.8
-mediapipe>=0.10
+mediapipe==0.10.13
 numpy
 pandas
 matplotlib

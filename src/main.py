@@ -1,8 +1,12 @@
 import cv2
 from video.camera import Camera
+from pose.estimator import PoseEstimator
+from ui.renderer import Renderer
 
 def main():
     cam = Camera(index=0)
+    pose_estimator = PoseEstimator()
+    renderer = Renderer()
 
     try:
         while True:
@@ -10,9 +14,11 @@ def main():
             if not ok:
                 break
 
-            cv2.imshow("PostureGuard - Camera", frame)
+            pose_result = pose_estimator.infer(frame)
+            frame = renderer.draw_pose(frame, pose_result)
 
-            # Quit on 'q'
+            cv2.imshow("PostureGuard - Pose Estimation", frame)
+
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 break
     finally:
