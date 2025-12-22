@@ -60,3 +60,31 @@ class Renderer:
 
         return frame
 
+
+
+    def draw_stable_state(self, frame, smoothed):
+        if not smoothed:
+            return frame
+
+        state = smoothed["stable_state"]
+        duration = smoothed["duration_sec"]
+
+        color_map = {
+            "GOOD": (0, 255, 0),
+            "WARNING": (0, 255, 255),
+            "BAD": (0, 0, 255),
+        }
+
+        text = f"Stable posture: {state} ({duration:.1f}s)"
+
+        cv2.putText(
+            frame,
+            text,
+            (10, 140),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.7,
+            color_map[state],
+            2,
+        )
+
+        return frame
