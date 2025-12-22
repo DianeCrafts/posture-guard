@@ -1,11 +1,13 @@
 import cv2
 from video.camera import Camera
 from pose.estimator import PoseEstimator
+from analysis.posture_analyzer import PostureAnalyzer
 from ui.renderer import Renderer
 
 def main():
     cam = Camera(index=0)
     pose_estimator = PoseEstimator()
+    analyzer = PostureAnalyzer()
     renderer = Renderer()
 
     try:
@@ -15,9 +17,12 @@ def main():
                 break
 
             pose_result = pose_estimator.infer(frame)
-            frame = renderer.draw_pose(frame, pose_result)
+            metrics = analyzer.analyze(pose_result)
 
-            cv2.imshow("PostureGuard - Pose Estimation", frame)
+            frame = renderer.draw_pose(frame, pose_result)
+            frame = renderer.draw_metrics(frame, metrics)
+
+            cv2.imshow("PostureGuard - Metrics", frame)
 
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 break

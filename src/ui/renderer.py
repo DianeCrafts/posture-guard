@@ -1,3 +1,4 @@
+import cv2
 import mediapipe as mp
 
 class Renderer:
@@ -12,4 +13,24 @@ class Renderer:
                 pose_result.pose_landmarks,
                 self.mp_pose.POSE_CONNECTIONS,
             )
+        return frame
+
+    def draw_metrics(self, frame, metrics):
+        if not metrics:
+            return frame
+
+        y = 30
+        for key, value in metrics.items():
+            text = f"{key}: {value:.2f}"
+            cv2.putText(
+                frame,
+                text,
+                (10, y),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.6,
+                (0, 255, 0),
+                2,
+            )
+            y += 25
+
         return frame
