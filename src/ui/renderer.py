@@ -34,3 +34,29 @@ class Renderer:
             y += 25
 
         return frame
+    
+
+    def draw_posture_state(self, frame, classification):
+        if not classification:
+            return frame
+
+        state = classification["state"]
+
+        color_map = {
+            "GOOD": (0, 255, 0),
+            "WARNING": (0, 255, 255),
+            "BAD": (0, 0, 255),
+        }
+
+        cv2.putText(
+            frame,
+            f"Posture: {state}",
+            (10, 100),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.9,
+            color_map[state],
+            3,
+        )
+
+        return frame
+
