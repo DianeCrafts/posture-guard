@@ -1,3 +1,6 @@
+import warnings
+warnings.simplefilter("ignore", UserWarning)
+
 import cv2
 import time
 
@@ -9,6 +12,7 @@ from decision.temporal_smoother import TemporalSmoother
 from decision.alert_manager import AlertManager
 from ui.renderer import Renderer
 from data.recorder import DataRecorder
+from ml.ml_classifier import MLPostureClassifier
 
 
 def trigger_alert():
@@ -19,11 +23,33 @@ def trigger_alert():
         print("ALERT: Bad posture detected!")
 
 
+def choose_classifier():
+    while True:
+        choice = input(
+            "Choose posture classifier ([r]ule-based / [m]l-based): "
+        ).strip().lower()
+
+        if choice in ("r", "rule"):
+            print("Using RULE-BASED posture classifier.")
+            return PostureClassifier()
+
+        if choice in ("m", "ml"):
+            print("Using ML-BASED posture classifier.")
+            return MLPostureClassifier(
+                model_path="models/posture_model.pkl",
+                threshold=0.5
+            )
+
+        print("Invalid choice. Please enter 'r' or 'm'.")
+
+
 def main():
     cam = Camera(index=0)
     pose_estimator = PoseEstimator()
     analyzer = PostureAnalyzer()
-    classifier = PostureClassifier()
+
+    classifier = choose_classifier()   # ⭐ key change
+
     smoother = TemporalSmoother(confirm_time=1.5)
     alert_manager = AlertManager(
         bad_posture_time=5.0,
@@ -31,7 +57,7 @@ def main():
     )
     renderer = Renderer()
     recorder = DataRecorder(sample_hz=10)
-    # visual alert timing
+
     alert_visible_until = 0.0
 
     try:
@@ -71,7 +97,6 @@ def main():
                 break
 
             recorder.update(metrics)
-
 
     finally:
         cam.release()
