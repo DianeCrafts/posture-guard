@@ -17,6 +17,12 @@ This project was designed as an end-to-end applied AI system, not just a model d
 - User-labeled data collection for ML
 - Offline evaluation: rule-based vs ML comparison
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b6ad0806-5632-4cee-8fc3-db0437334334" width="32%" />
+  <img src="https://github.com/user-attachments/assets/e05f5ee6-85fe-4874-bf94-3e98053a881a" width="32%" />
+  <img src="https://github.com/user-attachments/assets/49a2bf23-55bc-4bc5-8991-77db904d25f4" width="32%" />
+</p>
+
 ## System Architecture
 
 The system is intentionally modular and layered:
